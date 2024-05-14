@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 
 import com.formdev.flatlaf.FlatClientProperties;
 
+import net.miginfocom.swing.MigLayout;
 import usmb.info405.grp1.app.models.Categorie;
 import usmb.info405.grp1.app.models.Image;
 import usmb.info405.grp1.app.models.Marque;
@@ -58,7 +60,7 @@ public class ProduitPanel extends JPanel {
 	
 	public void init() {
 		produits = getProduits();
-		setLayout((LayoutManager) new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new MigLayout("wrap,insets 20","[center]","[center]"));
 		
 		//Ajout du titre
 		JLabel titleLabel = new JLabel("Références des produits");
@@ -85,19 +87,11 @@ public class ProduitPanel extends JPanel {
 		add(Box.createRigidArea(new Dimension(0,50)));
 		
 		//Creation du Scrollable Panel
-		ScrollablePanel listePanel = createListPanel();
-		add(listePanel);
-		
-		//Ajout de la Scrollbar
-		JScrollPane resaScrollPane = new JScrollPane(listePanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		resaScrollPane.setBorder(BorderFactory.createEmptyBorder());
-		resaScrollPane.putClientProperty(FlatClientProperties.STYLE,"" +
-				"[light]background:darken(@background,3%);" +
-				"[dark]background:lighten(@background,3%)");
+		JScrollPane resaScrollPane = createListPanel();
 		add(resaScrollPane);
 		
+		add(Box.createRigidArea(new Dimension(0,10)));
 		
-		add(Box.createRigidArea(new Dimension(0,50)));
 		//Creation du panel stockant les boutons d'ajout
 		JPanel ajouts = new JPanel();
 		add(ajouts);
@@ -109,18 +103,36 @@ public class ProduitPanel extends JPanel {
 	}
 	
 	//Composant de Panel de la liste
-	private ScrollablePanel createListPanel() {
-		ScrollablePanel listePanel = new ScrollablePanel();
-		listePanel.setLayout(new GridLayout(0,1));
-		//GridBagConstraints c = new GridBagConstraints();
-		listePanel.add(infoColonne());
+	private JScrollPane createListPanel() {
+		JPanel afficheProd = new JPanel();
+		afficheProd.setLayout(new GridLayout(0,1));
+		afficheProd.add(infoColonne());
 		
 		for (Produit produit: produits) {
-			
-			listePanel.add(new ProduitDetailPanel(this, produit));
+			afficheProd.add(new ProduitDetailPanel(this, produit));
 		}
 		
-		return listePanel;
+		JScrollPane scrollPane = new JScrollPane(afficheProd);
+		
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		//retrait background + Bordure
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.getVerticalScrollBar().setOpaque(false);
+		
+		
+		scrollPane.setMaximumSize(new Dimension(900, 500));
+		
+		//passe en flatlaf style
+		scrollPane.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE,"" 
+			+ "trackArc : 999;"
+			+ "width: 5;"
+			+ "thumbInsets: 0,0,0,0");
+		
+		
+		return scrollPane;
 	}
 	
 	private JPanel infoColonne() {
@@ -142,7 +154,7 @@ public class ProduitPanel extends JPanel {
 		caution.setHorizontalAlignment(SwingConstants.CENTER);
 		colonnes.add(caution);
 		
-		JLabel modifier = new JLabel("Modifier");
+		JLabel modifier = new JLabel("");
 		modifier.setHorizontalAlignment(SwingConstants.CENTER);
 		colonnes.add(modifier);
 

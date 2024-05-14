@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -81,12 +82,15 @@ public class AjoutProduitPanel extends JPanel {
 		FormNom.add(txtNom);
 		
 		// form général pour les marques, images et catégories
+		JPanel panelMarqueCatego = new JPanel(new FlowLayout());
 		
 		JPanel FormSelection = new JPanel();
 		panelFormAjout.add(FormSelection);
 		
 		// form marques
 		
+		JPanel formMarques = new JPanel();
+		panelFormAjout.add(formMarques);
 		
 		ArrayList<Marque> marques = this.getMarques();
 		Vector<Marque> listeAffichageMarques = new Vector<Marque>();
@@ -98,10 +102,17 @@ public class AjoutProduitPanel extends JPanel {
 		JList<Marque> listMarques = new JList<Marque>(listeAffichageMarques);
 		listMarques.setSelectedIndex(0);
 		
-		JScrollPane listeAvecAscenseurMarque = new JScrollPane(listMarques);
-		FormSelection.add(listeAvecAscenseurMarque);
+		JScrollPane scrollPaneMarques = new JScrollPane(listMarques);
+		scrollPaneMarques.setPreferredSize(new Dimension(80,100));
+		
+		formMarques.add(scrollPaneMarques);
+		
+		FormSelection.add(formMarques);
 		
 		// form categories
+		
+		JPanel formCatego = new JPanel();
+		panelFormAjout.add(formCatego);
 		
 		ArrayList<Categorie> categories = this.getCategories();
 		Vector<Categorie> listeAffichageCategories = new Vector<Categorie>();
@@ -113,8 +124,16 @@ public class AjoutProduitPanel extends JPanel {
 		JList<Categorie> listCategories = new JList<Categorie>(listeAffichageCategories);
 		listCategories.setSelectedIndex(0);
 		
-		JScrollPane listeAvecAscenseurCategorie = new JScrollPane(listCategories);
-		FormSelection.add(listeAvecAscenseurCategorie);
+		JScrollPane scrollPaneCatego = new JScrollPane(listCategories);
+		scrollPaneCatego.setPreferredSize(new Dimension(80,100));
+		
+		formCatego.add(scrollPaneCatego);
+		
+		FormSelection.add(formCatego);
+		
+		//-- ajout des deux JList au panel correspondant
+		//panelMarqueCatego.add(FormSelection);
+		//add(panelMarqueCatego);
 		
 		// form description
 		
