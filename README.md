@@ -4,7 +4,7 @@
 
 
 ## Techos
-- Front: logiciel avec Java + Swing
+- Front: logiciel avec Java + Swing + FlatLaf
 - Backend: Java Springboot + Spring security
 
 
