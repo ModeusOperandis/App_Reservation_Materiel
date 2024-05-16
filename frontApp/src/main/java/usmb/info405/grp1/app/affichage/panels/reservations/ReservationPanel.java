@@ -2,10 +2,12 @@ package usmb.info405.grp1.app.affichage.panels.reservations;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import net.miginfocom.swing.MigLayout;
 import usmb.info405.grp1.app.affichage.optionPanes.PopUpErrorJOptionPane;
 import usmb.info405.grp1.app.exceptions.InvalidDateException;
 import usmb.info405.grp1.app.models.Panier;
@@ -38,6 +40,9 @@ public class ReservationPanel extends JPanel {
 	 */
 	public ReservationPanel() {
 		setLayout(new BorderLayout());
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new MigLayout("wrap,insets 20","[center]","[center]"));
+		mainPanel.setPreferredSize(new Dimension(900, 600));
 		panier = new Panier();
 		currEtape = 1;
 		currentPanelEtape = new JPanel(new CardLayout());
@@ -56,11 +61,12 @@ public class ReservationPanel extends JPanel {
 		currentPanelEtape.add(etape2, "etape2");
 		currentPanelEtape.add(etape3, "etape3");
 		
-		add(currentPanelEtape, BorderLayout.CENTER);
+		mainPanel.add(currentPanelEtape);
 		
 		directionPanel = new DirectionPanel(this, panier);
 		directionPanel.setVisible(true);
-		add(directionPanel, BorderLayout.SOUTH);
+		mainPanel.add(directionPanel);
+		add(mainPanel, BorderLayout.CENTER);
 		
 		//HideAllPanels();
 		//etape1.setVisible(true);

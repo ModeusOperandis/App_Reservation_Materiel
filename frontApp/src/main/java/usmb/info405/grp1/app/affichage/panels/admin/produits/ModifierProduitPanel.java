@@ -79,7 +79,8 @@ public class ModifierProduitPanel extends JPanel {
 		panelFormAjout.add(FormSelection);
 		
 		// form marques
-		
+		JPanel formMarques = new JPanel();
+		panelFormAjout.add(formMarques);
 		
 		ArrayList<Marque> marques = this.getMarques();
 		Vector<Marque> listeNomMarques = new Vector<Marque>();
@@ -96,11 +97,16 @@ public class ModifierProduitPanel extends JPanel {
 		JList<Marque> listMarques = new JList<Marque>(listeNomMarques);
 		listMarques.setSelectedIndex(selecteurMarque);
 		
-		JScrollPane listeAvecAscenseurMarque = new JScrollPane(listMarques);
-		FormSelection.add(listeAvecAscenseurMarque);
+		JScrollPane scrollPaneMarques = new JScrollPane(listMarques);
+		scrollPaneMarques.setPreferredSize(new Dimension(80,100));
+		
+		formMarques.add(scrollPaneMarques);
+		
+		FormSelection.add(formMarques);
 		
 		// form categories
-		
+		JPanel formCatego = new JPanel();
+		panelFormAjout.add(formCatego);
 		
 		ArrayList<Categorie> categories = this.getCategories();
 		Vector<Categorie> listeNomCategories = new Vector<Categorie>();
@@ -117,9 +123,12 @@ public class ModifierProduitPanel extends JPanel {
 		JList<Categorie> listCategories = new JList<Categorie>(listeNomCategories);
 		listCategories.setSelectedIndex(selecteurCategorie);
 		
-		JScrollPane listeAvecAscenseurCategorie = new JScrollPane(listCategories);
-		FormSelection.add(listeAvecAscenseurCategorie);
+		JScrollPane scrollPaneCatego = new JScrollPane(listCategories);
+		scrollPaneCatego.setPreferredSize(new Dimension(80,100));
 		
+		formCatego.add(scrollPaneCatego);
+		
+		FormSelection.add(formCatego);
 
 		
 		// form description

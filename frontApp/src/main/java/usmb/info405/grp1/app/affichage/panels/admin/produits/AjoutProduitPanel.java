@@ -103,7 +103,7 @@ public class AjoutProduitPanel extends JPanel {
 		listMarques.setSelectedIndex(0);
 		
 		JScrollPane scrollPaneMarques = new JScrollPane(listMarques);
-		scrollPaneMarques.setPreferredSize(new Dimension(80,100));
+		scrollPaneMarques.setPreferredSize(new Dimension(85,100));
 		
 		formMarques.add(scrollPaneMarques);
 		
@@ -125,7 +125,7 @@ public class AjoutProduitPanel extends JPanel {
 		listCategories.setSelectedIndex(0);
 		
 		JScrollPane scrollPaneCatego = new JScrollPane(listCategories);
-		scrollPaneCatego.setPreferredSize(new Dimension(80,100));
+		scrollPaneCatego.setPreferredSize(new Dimension(85,100));
 		
 		formCatego.add(scrollPaneCatego);
 		
