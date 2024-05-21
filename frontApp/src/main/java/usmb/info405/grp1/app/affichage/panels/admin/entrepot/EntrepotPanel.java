@@ -162,10 +162,11 @@ public class EntrepotPanel extends JPanel {
 	
 	
 	public JButton ajouterObjetButton() {
-		AjoutEntrepotPanel ajoutEntrepotPanel = new AjoutEntrepotPanel(this);
+	
         JButton btnAjouterObjet = new JButton("Ajouter Produit");
         btnAjouterObjet.addActionListener(e -> {
         	
+        	AjoutEntrepotPanel ajoutEntrepotPanel = new AjoutEntrepotPanel(this);
             JDialog dialog = new JDialog();
             dialog.getContentPane().add(ajoutEntrepotPanel);
             //dialog.pack(); // prend size auto

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import com.formdev.flatlaf.FlatClientProperties;
 
+import net.miginfocom.swing.MigLayout;
 import usmb.info405.grp1.app.affichage.panels.admin.entrepot.models.Entrepot;
 import usmb.info405.grp1.app.affichage.panels.admin.utilisateurs.models.Utilisateur;
 import usmb.info405.grp1.app.models.Creneau;
@@ -58,22 +59,15 @@ public class VosReservationsPanel extends AbstractPanel implements ReservationsF
 	
 	@Override
 	public void init() {
-		setLayout((LayoutManager) new BoxLayout(this, BoxLayout.Y_AXIS));
-		
-		
+		setLayout(new MigLayout("wrap,insets 10","[center]","[center]"));
 		
 		//id 
 		idUser = (Integer) DataApi.getinstance().getUserInfo().get("id");
 		
-		//reservation
-		parentCreneauxPanel.setLayout((LayoutManager) new BoxLayout(parentCreneauxPanel, BoxLayout.Y_AXIS));
-		
-		
-		
 		//title
 		JLabel titleLabel = new JLabel("Vos réservations ");
 		titleLabel.setFont(titleLabel.getFont().deriveFont(24.0f));
-		titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		titleLabel.putClientProperty(FlatClientProperties.STYLE,"" +
 				"[light]background:darken(@background,3%);" +
 				"[dark]background:lighten(@background,3%)");
@@ -89,26 +83,47 @@ public class VosReservationsPanel extends AbstractPanel implements ReservationsF
 				"[light]background:darken(@background,3%);" +
 				"[dark]background:lighten(@background,3%)");
 		add(NoteLabel);
-		NoteLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//NoteLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 
 		
-		add(Box.createRigidArea(new Dimension(0,25)));
+		//add(Box.createRigidArea(new Dimension(0,25)));
 		
+		//reservation
+		parentCreneauxPanel.setLayout(new MigLayout("wrap,fillx,insets 30 30 30 30","fill,600:300"));
+		parentCreneauxPanel.putClientProperty(FlatClientProperties.STYLE,"" +
+						"arc:20;" +
+						"[light]background:darken(@background,3%);" +
+						"[dark]background:lighten(@background,3%)");
+		//parentCreneauxPanel.setPreferredSize(new Dimension (750, 500));
 
 		//Implémentation de la scrollBar
-		parentCreneauxPanel.putClientProperty(FlatClientProperties.STYLE,"" +
-				"arc:20;" +
-				"[light]background:darken(@background,3%);" +
-				"[dark]background:lighten(@background,3%)");
+		
 		JScrollPane resaScrollPane = new JScrollPane(parentCreneauxPanel);
 		resaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		resaScrollPane.setMaximumSize(new Dimension(1000,500));
+		resaScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		resaScrollPane.setBorder(BorderFactory.createEmptyBorder());
+		resaScrollPane.setOpaque(true);
+		resaScrollPane.getViewport().setOpaque(true);
+		resaScrollPane.getVerticalScrollBar().setOpaque(true);
+		
+		//resaScrollPane.setPreferredSize(new Dimension(750,500));
+		resaScrollPane.setMinimumSize(new Dimension(750,500));
+		resaScrollPane.setMaximumSize(new Dimension(750,500));
+		
+		resaScrollPane.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE,"" 
+				+ "trackArc : 999;"
+				+ "width: 5;"
+				+ "thumbInsets: 0,0,0,0");
+		
+		
 		add(resaScrollPane);
 			
 			
-		
+		// Debugging dimensions
+        System.out.println("Parent Panel Size: " + parentCreneauxPanel.getPreferredSize());
+        System.out.println("Scroll Pane Size: " + resaScrollPane.getPreferredSize());
 		
 		updateRecapCreneaux();
 		
@@ -167,7 +182,7 @@ public class VosReservationsPanel extends AbstractPanel implements ReservationsF
 			//l'on verifie que la date de fin est bien après la date du jour autement cela signifie que la réservation est terminee
 			if (todayDate.isBefore(creneau.getDateFin())) {
 				parentCreneauxPanel.add(new ReservationRecapPanel(this, creneau));
-				parentCreneauxPanel.add(Box.createRigidArea(new Dimension(0,15)));
+				//parentCreneauxPanel.add(Box.createRigidArea(new Dimension(0,15)));
 				
 			}
 			

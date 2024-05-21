@@ -4,16 +4,14 @@ import javax.swing.JPanel;
 
 
 
+
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.JOptionPane;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -31,11 +29,9 @@ import usmb.info405.grp1.app.models.Image;
 import usmb.info405.grp1.app.models.Marque;
 import usmb.info405.grp1.app.models.Produit;
 import usmb.info405.grp1.app.utilitaire.DataApi;
-import usmb.info405.grp1.app.utilitaire.ScrollablePanel;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -162,10 +158,11 @@ public class ProduitPanel extends JPanel {
 	}
 
 	public JButton ajouterProduitButton() {
-		AjoutProduitPanel ajoutProduitPanel = new AjoutProduitPanel(this);
+		
         JButton btnAjouterProduit = new JButton("Ajouter Produit");
         btnAjouterProduit.addActionListener(e -> {
         	
+        	AjoutProduitPanel ajoutProduitPanel = new AjoutProduitPanel(this);
             JDialog dialog = new JDialog();
             dialog.getContentPane().add(ajoutProduitPanel);
             //dialog.pack(); // prend size auto
